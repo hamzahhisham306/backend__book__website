@@ -29,5 +29,10 @@ mongoose
 
 app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'));
+app.use('/',(req,res)=>{
+  return res.status(200).json({
+    message:"Success"
+  })
+})
 app.use(books)
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
