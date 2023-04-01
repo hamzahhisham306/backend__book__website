@@ -8,7 +8,7 @@ const express = require('express');
 const app = express();
 const books=require('./routes/index');
 app.use(express.json());
-
+const Book = require('./schemas/Schema');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -29,10 +29,9 @@ mongoose
 
 app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'));
-app.use('/',(req,res)=>{
-  return res.status(200).json({
-    message:"Success"
-  })
+app.use('/',async(req,res)=>{
+  const allbooks = await Book.find();
+  return res.status(200).json(allbooks);
 })
 app.use(books)
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
